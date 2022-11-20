@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import BackgroundImage from "../components/BackgroundImage";
 import Header from "../components/Header";
+import {createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { firebaseAuth } from "../utils/firebase-config";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
@@ -12,9 +16,16 @@ export default function Signup() {
 
 const handleSignIn = async () => {
   try {
-    
+    const {email, password} = formValues;
+    await createUserWithEmailAndPassword(firebaseAuth, email, password);
+  } catch(error) {
+      console.log(error);
   }
-}
+};
+
+onAuthStateChanged(firebaseAuth, (currentUser)=> {
+  if (currentUser) navigate("/");
+});
 
   return (
     <Container showPassword={showPassword}>
