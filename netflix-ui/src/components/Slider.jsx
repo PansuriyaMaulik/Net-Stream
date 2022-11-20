@@ -2,7 +2,7 @@ import React from 'react'
 import CardSlider from './CardSlider'
 import styled from 'styled-components';
 
-export default function Slider({ movies }) {
+export default React.memo (function Slider({ movies }) {
   const getMoviesFromRange = (from, to) => {
     return movies.slice(from, to);
   };
@@ -22,6 +22,6 @@ export default function Slider({ movies }) {
       <CardSlider data={getMoviesFromRange(50, 60)} title="Epics" />
     </Container>
   );
-}
+});
 
 const Container = styled.div``;
