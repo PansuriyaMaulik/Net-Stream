@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+// eslint-disable-next-line
 import { Bs, BsArrowLeft } from "react-icons/bs";
 import video from "../assets/video.mp4";
 import { useNavigate } from "react-router-dom";
