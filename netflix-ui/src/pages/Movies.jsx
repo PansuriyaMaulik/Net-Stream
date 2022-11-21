@@ -9,6 +9,7 @@ import Slider from "../components/Slider";
 import NotAvailabe from "../components/NotAvailable";
 import { firebaseAuth } from "../utils/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
+import SelectGenre from "../components/SelectGenre";
  
 
 export default function Movies() {
@@ -17,6 +18,8 @@ export default function Movies() {
   const dispatch = useDispatch();
   const genresLoaded = useSelector((state)=>state.netflix.genresLoaded);
   const movies = useSelector((state) => state.netflix.movies)
+  const genres = useSelector((state) => state.netflix.genres)
+
 
   useEffect(() => {
     dispatch(getGenres());
@@ -25,7 +28,7 @@ export default function Movies() {
 
   useEffect(()=> {
     if(genresLoaded) dispatch(fetchMovies({type:"movies"}))
-  })
+  }, [])
 
   window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -43,6 +46,7 @@ export default function Movies() {
             <Navbar isScrolled={isScrolled}/>
         </div>
         <div className="data">
+        <SelectGenre genres={genres} type="movie" />
             {
                 movies.length ? <Slider movies = {movies}/> : <NotAvailabe />
             }
